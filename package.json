@@ -23,7 +23,9 @@
   "dependencies" : {
     "irc"   :  "*",
     "youtube-node" : "*",
-    "js-yaml" : "*"
+    "js-yaml" : "*",
+    "express" : "3.x",
+    "jade" : "*"
   },
   "license": "MIT",
   "engines": {

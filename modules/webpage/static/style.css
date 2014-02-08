@@ -1,0 +1,36 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #999;
+}
+
+div#container {
+  padding: 5px;
+  width: 100%;
+}
+
+div#right {
+  float: right;
+  width: 10%;
+}
+
+div#left {
+  float: left;
+  margin-right: 10%;
+}
+
+div#header {
+  height: 20px;
+  padding: 5px;
+  background-color: #989;
+}
+
+div#links {
+  float: right;
+  width: 10%;
+}
+
+div#logo {
+  float: left;
+  margin-right: 10%;
+}

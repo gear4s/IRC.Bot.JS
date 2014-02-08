@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Jade Example
+    link(href="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.css", rel="stylesheet", type="text/css")
+    link(rel="stylesheet", href="/style.css")
+    script(src="//code.jquery.com/jquery-1.10.1.min.js")
+    script(src="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.js", type="text/javascript")
+    script(src="/static.js")
+
+  body
+    div#header
+      div#logo
+        span Narwhaals! Webpanel
+      div#links
+        a#add(href="#") add
+    div#container
+      div#left
+        span text
+      div#right
+        div.addchan(style="display: none")
+          form(name="input", action="/join", method="get")
+            span channel: 
+              input(type="text", name="chan")
+            br
+            br
+        -for(var chan in channels)
+          span.channel= chan
+          -var ochan = chan; var cchan = chan.slice(1).replace(/\#/g, ''); chan = cchan.replace(/\./g, '_');
+          div(style="display: none", id="#{chan}")
+            span - 
+              a(href="part?chan=#{cchan}") Part
+          br
