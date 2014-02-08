@@ -24,6 +24,34 @@ var bot = new irc.Client(config.server, config.botName, {
   showErrors: true,
   stripColors: true,
 });
+bot.isop = {};
+bot.isvoice = {};
+
+// populate isop/isvoice
+bot.addListener("join", function (chan, who) {
+  // Welcome them in!
+  if(who == bot.opt.nick) {
+    bot.isop[chan] = false;
+    bot.isvoice[chan] = false;
+  }
+});
+
+bot.addListener("+mode", function (chan, by, mode, arg) {
+  if((mode == "o" || mode == "v") && arg == bot.nick) {
+    console.log("[ INFO ] Just been " + (mode == "o" ? "opped" : "voiced") + " in " + chan);
+
+    bot["is" + (mode == "o" ? "op" : "voice")][chan] = true;
+  }
+});
+
+bot.addListener("-mode", function (chan, by, mode, arg) {
+  if((mode == "o" || mode == "v") && arg == bot.nick) {
+    console.log("[ INFO ] Just been de" + (mode == "o" ? "opped" : "voiced") + " in " + chan);
+
+    bot["is" + (mode == "o" ? "op" : "voice")][chan] = false;
+  }
+});
+
 var command = new (require('./command'))(bot);
 var P;
 for(var i in config.plugins) {

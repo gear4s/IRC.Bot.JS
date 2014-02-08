@@ -2,7 +2,7 @@
 
 var logger = function(bot) {
   this.help = {
-    description: "Logs your conversations, BY CREEPED"
+    description: "Logs your conversations, BE CREEPED"
   }
 
   var fs = require("fs");
