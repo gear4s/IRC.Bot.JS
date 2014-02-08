@@ -8,7 +8,7 @@ module.exports = {
   botName: "narwhaals",
 
   // List of plugins to load
-  plugins: ["match", "bot", "login", "youtube", "emotes", "ctcp", "insult", "chuck", "logger", "webadmin", "op"],
+  plugins: ["match", "bot", "login", "youtube", "emotes", "ctcp", "insult", "chuck", "logger", "op"],
 
   // List of valid users that can login
   users: {
