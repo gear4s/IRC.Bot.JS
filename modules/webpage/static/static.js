@@ -14,4 +14,10 @@ $(function(){
           $("#" + l).show();
         }
     })
+
+    $("#nick").click(
+      function(event) {
+        $("#nick").html($("#changenick").html());
+      }
+    );
 });

@@ -17,8 +17,10 @@ var insult = function(bot, _) {
 
 insult.prototype.global = {};
 insult.prototype.global.insult = function(from, to, who) {
+  who = who || "someone";
   if(who.toLowerCase() == this.bot.nick.toLowerCase() || who.toLowerCase() == "yourself") {
     this.bot.say(to, "nice try, fool");
+    who = from;
   }
 
   var adjectives = [

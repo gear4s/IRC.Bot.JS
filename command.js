@@ -105,7 +105,17 @@ cmd.prototype.execCommand = function(req, to, plugins, module, name, args) {// c
     this.bot.notice(req, "Invalid module");
     return false;
   }
-  p = p.commands.public[name];
+  p = p.commands;
+  if(!p) {
+    this.bot.notice(req, "No commands in this module");
+    return false;
+  }
+  p = p.public;
+  if(!p) {
+    this.bot.notice(req, "No public commands in this module");
+    return false;
+  }
+  p = p[name];
   if(!p) {
     this.bot.notice(req, "Invalid command name");
     return false;
@@ -121,7 +131,22 @@ cmd.prototype.execPMCommand = function(req, plugins, module, name, args) {
     this.bot.notice(req, "Invalid module");
     return false;
   }
-  p = plugins[module].commands.private[name];
+  
+  if(!p) {
+    this.bot.notice(req, "Invalid module");
+    return false;
+  }
+  p = p.commands;
+  if(!p) {
+    this.bot.notice(req, "No commands in this module");
+    return false;
+  }
+  p = p.private;
+  if(!p) {
+    this.bot.notice(req, "No private commands in this module");
+    return false;
+  }
+  p = p[name];
   if(!p) {
     this.bot.notice(req, "Invalid command name");
     return false;

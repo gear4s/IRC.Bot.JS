@@ -27,10 +27,9 @@ div#header {
 
 div#links {
   float: right;
-  width: 10%;
+  display: inline;
 }
 
 div#logo {
   float: left;
-  margin-right: 10%;
 }

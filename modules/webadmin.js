@@ -24,6 +24,13 @@ function webmin(bot) {
     }
   });
 
+  app.get('/nick', function(req, res){
+    if(req.query.new) {
+      bot.send("NICK", req.query.new);
+      res.send("Changed nickname to " + req.query.new + ". <a href=\"/\">Go Back</a>");
+    }
+  });
+
   app.use(express.static(__dirname + '/webpage/static'));
 
   app.set('views', __dirname + "/webpage/public");

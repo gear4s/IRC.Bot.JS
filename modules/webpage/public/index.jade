@@ -13,7 +13,14 @@ html
       div#logo
         span Narwhaals! Webpanel
       div#links
-        a#add(href="#") add
+        span#nick
+          a(href="#") change nick 
+          span#changenick(style="display: none")
+            form(name="input", action="/nick", method="get", style="display:inline!important; padding: 0; margin: 0;")
+              span channel: 
+                input(type="text", name="new")
+        span |
+        a#add(href="#") add channel
     div#container
       div#left
         span text
