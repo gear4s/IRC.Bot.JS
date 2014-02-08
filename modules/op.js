@@ -11,7 +11,7 @@ var bot = function(bot, users) {
         private: false,
         description:"Kicks a user from a channel"
       },
-      op: {
+      user: {
         admin:true,
         private: false,
         description:"Gives a user operator status"
@@ -20,6 +20,16 @@ var bot = function(bot, users) {
         admin:true,
         private: false,
         description:"Gives a user permission to talk in a moderated channel"
+      },
+      de: {
+        admin:true,
+        private: false,
+        description:"Revokes a user operator status"
+      },
+      devoice: {
+        admin:true,
+        private: false,
+        description:"Revokes a user's permission to talk in a moderated channel"
       },
       topic: {
         admin:true,
@@ -64,6 +74,21 @@ bot.prototype.commands.public.voice = function(from, to, who, channel) {
     this.bot.say(to, "You're not admin");
   }
 };
+bot.prototype.commands.public.devoice = function(from, to, who, channel) {
+  if(this.users.admin(from) && this.users.status(from) !== 0) {
+    if(!this.bot.isop[to]) {this.bot.say(to, "I need to be op to voice"); return 0;}
+    if(!who) {
+      this.bot.say(to, "User needs to be there nigg");
+      return false;
+    }
+    channel = channel || "";
+    var l = channel[0] == "#" ? 1 : 0;
+    this.bot.say(to, "Devoiced " + who);
+    this.bot.send("MODE", l == 1 ? channel : to, "-v", who);
+  } else {
+    this.bot.say(to, "You're not admin");
+  }
+};
 bot.prototype.commands.public.user = function(from, to, who, channel) {
   if(this.users.admin(from) && this.users.status(from) !== 0) {
     if(!this.bot.isop[to]) {this.bot.say(to, "I need to be op to op"); return 0;}
@@ -75,6 +100,21 @@ bot.prototype.commands.public.user = function(from, to, who, channel) {
     var l = channel[0] == "#" ? 1 : 0;
     this.bot.say(to, "Opped " + who);
     this.bot.send("MODE", l == 1 ? channel : to, "+o", who);
+  } else {
+    this.bot.say(to, "You're not admin");
+  }
+};
+bot.prototype.commands.public.de = function(from, to, who, channel) {
+  if(this.users.admin(from) && this.users.status(from) !== 0) {
+    if(!this.bot.isop[to]) {this.bot.say(to, "I need to be op to op"); return 0;}
+    if(!who) {
+      this.bot.say(to, "User needs to be there nigg");
+      return false;
+    }
+    channel = channel || "";
+    var l = channel[0] == "#" ? 1 : 0;
+    this.bot.say(to, "Deopped " + who);
+    this.bot.send("MODE", l == 1 ? channel : to, "-o", who);
   } else {
     this.bot.say(to, "You're not admin");
   }
@@ -91,6 +131,8 @@ bot.prototype.commands.public.topic = function(from, to) {
     this.bot.say(to, "You're not admin");
   }
 };
+
+bot.prototype.global = {};
 
 module.exports = bot;
 
