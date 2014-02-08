@@ -1,0 +1,32 @@
+{
+  "name": "narwhaals",
+  "preferGlobal": true,
+  "version": "0.3.0",
+  "author": "Aaron Lee <aaron@graphox.us>",
+  "description": "A simple modularized IRC bot",
+  "contributors": [ 
+    {
+      "name": "Aaron Marais",
+      "email": "aaron@graphox.us"
+    } 
+  ],
+  "scripts": {
+    "predeploy": "echo Application Launched",
+    "postdeploy": "echo Application Closed"
+  },
+  "keywords": [
+    "cli",
+    "irc",
+    "robot",
+    "mooduled"
+  ],
+  "dependencies" : {
+    "irc"   :  "*",
+    "youtube-node" : "*",
+    "js-yaml" : "*"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
