@@ -1,0 +1,43 @@
+doctype html
+html
+  head
+    title Jade Example
+    link(href="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.css", rel="stylesheet", type="text/css")
+    link(type="text/css", rel="stylesheet", href="/style.css")
+    link(type="text/css", href="http://webchat.gamesurge.net/css/qui-ec31c78a9228.css", rel="stylesheet")
+    script(src="//code.jquery.com/jquery-1.10.1.min.js")
+    script(src="/static.js")
+
+    div#ircui(class="qwebirc qwebirc-qui")
+      div(class="dynamicpanel qwebirc-qui leftboundpanel lines")
+      table.qwebirc-centrebox
+        tbody
+          tr
+            td
+              table.qwebirc-loginbox
+                tbody
+                  tr.tr1
+                    td
+                      h1 Login to Narwhaals! webadmin
+                  tr.tr2
+                    td
+                      form(name="input", action="/login", method="post")
+                        table
+                          tbody
+                            tr
+                              td Nickname:
+                              td
+                                input(type="text", name="user")
+                              -if(errortype == 1)
+                                td= error
+                            tr
+                              td Password:
+                              td
+                                input(type="password", name="pass")
+                              -if(errortype == 2)
+                                td= error
+                            tr
+                              td
+                              td
+                                input(value="Connect" type="submit")
+

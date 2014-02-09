@@ -3,12 +3,14 @@ var express = require('express'),
     app = express(),
     httpServer = http.createServer(app);
 
-function webmin(bot) {
+app.use(express.urlencoded()); app.use(express.json()); // POST variables
+app.use(express.cookieParser());
+app.use(express.session({secret: '1234567890QWERTY'}));
+
+function webmin(bot, _, users) {
   this.help = {
     description: "Webadmin interface for narwhaals"
   };
-
-  this.bot = bot;
 
   app.get('/part', function(req, res){
     if(req.query.chan) {
@@ -31,17 +33,53 @@ function webmin(bot) {
     }
   });
 
+  app.post('/login', function(req, res) {
+    if(req.session.loggedin) {
+      res.send("You are already logged in. <a href=\"/\">Go Back</a>");
+      return 0;
+    }
+    if(req.body.user && req.body.pass) {
+      if(!users[req.body.user]) {res.render('login', {errortype: 1, error: "Invalid user."}); return 0;}
+      if(users[req.body.user][1] != req.body.pass) {res.render('login', {errortype: 2, error: "Invalid password."}); return 0;}
+      req.session.loggedin = true;
+      res.redirect('http://'+req.get('host') +'/');
+    } else {
+      res.render('login');
+    }
+  });
+
+  app.get('/login', function(req, res) {
+    if(req.session.loggedin) {
+      res.send("You are already logged in. <a href=\"/\">Go Back</a>");
+      return 0;
+    }
+    if(req.body.user && req.body.pass) {
+      if(!users[req.body.user]) {res.render('login', {errortype: 1, error: "Invalid user."}); return 0;}
+      if(users[req.body.user][1] != req.body.pass) {res.render('login', {errortype: 2, error: "Invalid password."}); return 0;}
+      req.session.loggedin = true;
+      res.redirect('http://'+req.get('host') +'/');
+    } else {
+      res.render('login');
+    }
+  });
+
   app.use(express.static(__dirname + '/webpage/static'));
 
   app.set('views', __dirname + "/webpage/public");
   app.set('view engine', 'jade');
 
   app.get('/', function(req, res){
+    if(!req.session.loggedin) {
+      res.redirect('http://'+req.get('host') +'/login');
+      return 0;
+    }
     res.render('index', { channels: bot.chans });
   });
 
-  app.listen(3000);
-  console.log("Webadmin online @ Port 3000");
+  var port = process.env["app_port"] || "3000";
+
+  app.listen(port);
+  console.log("Webadmin online @ Port " + port);
 }
 
 module.exports = webmin;

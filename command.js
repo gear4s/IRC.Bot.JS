@@ -10,10 +10,10 @@ var cmd = function(bot) {
   };
 };
 
-cmd.prototype.loadModule = function(name, bot, user) {
+cmd.prototype.loadModule = function(name, bot, user, userarray) {
   /*try {*/
     var P = require('./modules/' + name);
-    P = new P(bot, user);
+    P = new P(bot, user, userarray);
 
     if(!P.help) {
       console.log("[ ERROR ] Module " + name + " has no help object, not loading module");
