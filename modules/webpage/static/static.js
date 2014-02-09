@@ -1,23 +1,16 @@
 $(function(){
-    $('#add').on('click', function(e){
-        if($(".addchan").is(":visible")) {
-          $(".addchan").hide();
+    $('div.chanlist div').on('click', function(e){
+        if($(".menu", this).is(":visible")) {
+          $(".menu", this).hide();
         } else {
-          $(".addchan").show();
+          $(".menu", this).show();
         }
-    })
-    $('.channel').on('click', function(e){
-        var l = $(this).text().replace(/\./g, '_').replace(/\#/g, '');
-        if($("#" + l).is(":visible")) {
-          $("#" + l).hide();
-        } else {
-          $("#" + l).show();
-        }
-    })
+    });
 
-    $("#nick").click(
+    // popups
+    $(".pop").click(
       function(event) {
-        $("#nick").html($("#changenick").html());
+        $("#"+$(this).attr("value")).dialog();
       }
     );
 });

@@ -4,37 +4,37 @@ html
     title Jade Example
     link(href="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.css", rel="stylesheet", type="text/css")
     link(rel="stylesheet", href="/style.css")
+    link(type="text/css", href="http://webchat.gamesurge.net/css/qui-ec31c78a9228.css", rel="stylesheet")
+    link(rel="stylesheet", href="//code.jquery.com/ui/1.10.4/themes/vader/jquery-ui.css")
     script(src="//code.jquery.com/jquery-1.10.1.min.js")
-    script(src="http://medialize.github.io/jQuery-contextMenu/src/jquery.contextMenu.js", type="text/javascript")
+    script(src="//code.jquery.com/ui/1.10.4/jquery-ui.js")
     script(src="/static.js")
 
   body
+    span#nickchange(style="display: none")
+      form(name="input", action="/nick", method="get", style="display:inline!important; padding: 0; margin: 0;")
+        span channel: 
+          input(type="text", name="new")
+    div#addchan(style="display: none")
+      form(name="input", action="/join", method="get", style="display:inline!important; padding: 0; margin: 0;")
+        span channel: 
+          input(type="text", name="chan")
     div#header
       div#logo
         span Narwhaals! Webpanel
       div#links
-        span#nick
-          a(href="#") change nick 
-          span#changenick(style="display: none")
-            form(name="input", action="/nick", method="get", style="display:inline!important; padding: 0; margin: 0;")
-              span channel: 
-                input(type="text", name="new")
+        a.pop(href="#", value="nickchange") change nick 
         span |
-        a#add(href="#") add channel
+        a.pop(href="#", value="addchan") add channel
     div#container
       div#left
         span text
       div#right
-        div.addchan(style="display: none")
-          form(name="input", action="/join", method="get")
-            span channel: 
-              input(type="text", name="chan")
-            br
-            br
-        -for(var chan in channels)
-          span.channel= chan
-          -var ochan = chan; var cchan = chan.slice(1).replace(/\#/g, ''); chan = cchan.replace(/\./g, '_');
-          div(style="display: none", id="#{chan}")
-            span - 
-              a(href="part?chan=#{cchan}") Part
-          br
+        div.chanlist
+          -for(var chan in channels)
+            div(href="#")
+              span= chan
+              div.menu
+                -var cchan = chan.slice(1).replace(/\#/g, '');
+                a(href="part?chan=#{cchan}") &#45; part
+
