@@ -1,7 +1,8 @@
 "use strict"; // yup
 
 // Check if not running Windows
-if(process.getuid() !== "win32") {
+var plat = process.getuid || os.platform
+if(plat() !== "win32") {
   // check root
   if(process.getuid() === 0) {
     console.log('[ WARNING ] Running this bot in root is EVIL!');

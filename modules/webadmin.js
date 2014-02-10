@@ -13,6 +13,10 @@ function webmin(bot, _, users) {
   };
 
   app.get('/part', function(req, res){
+    if(!req.session.loggedin) {
+      res.redirect('http://'+req.get('host') +'/login');
+      return 0;
+    }
     if(req.query.chan) {
       bot.part("#" + req.query.chan);
       res.send("Parted #" + req.query.chan + ". <a href=\"/\">Go Back</a>");
@@ -20,6 +24,10 @@ function webmin(bot, _, users) {
   });
 
   app.get('/join', function(req, res){
+    if(!req.session.loggedin) {
+      res.redirect('http://'+req.get('host') +'/login');
+      return 0;
+    }
     if(req.query.chan) {
       bot.join("#" + req.query.chan.replace(/\#/g, ''));
       res.send("Joined #" + req.query.chan.replace(/\#/g, '') + ". <a href=\"/\">Go Back</a>");
@@ -27,6 +35,10 @@ function webmin(bot, _, users) {
   });
 
   app.get('/nick', function(req, res){
+    if(!req.session.loggedin) {
+      res.redirect('http://'+req.get('host') +'/login');
+      return 0;
+    }
     if(req.query.new) {
       bot.send("NICK", req.query.new);
       res.send("Changed nickname to " + req.query.new + ". <a href=\"/\">Go Back</a>");
