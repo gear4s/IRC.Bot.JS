@@ -1,7 +1,7 @@
 "use strict"; // yup
 
 // Check if not running Windows
-var plat = process.getuid || os.platform
+var plat = process.getuid || (require("os")).platform
 if(plat() !== "win32") {
   // check root
   if(process.getuid() === 0) {
