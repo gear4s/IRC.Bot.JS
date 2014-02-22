@@ -25,7 +25,9 @@
     "youtube-node" : "*",
     "js-yaml" : "*",
     "express" : "3.x",
-    "jade" : "*"
+    "jade" : "*",
+    "libxmljs-easy": "*",
+    "async": "*"
   },
   "license": "MIT",
   "engines": {
