@@ -5,15 +5,19 @@ var cmd = function(bot) {
   this.glob = {};
   
   this.cCmd = function(module, name, plugins) {
-    if(plugins[module].commands) {if(plugins[module].commands.public[name]) {return false;}}
+    try {
+      if(plugins[module].commands) {if(plugins[module].commands.public[name]) {return false;}}
+    } catch (err) {
+      console.log("[ ERROR ] Cannot load commands from module " + module)
+    }
     return true;
   };
 };
 
-cmd.prototype.loadModule = function(name, bot, user, userarray) {
+cmd.prototype.loadModule = function(name, bot, user, userarray, modconf) {
   /*try {*/
     var P = require('./modules/' + name);
-    P = new P(bot, user, userarray);
+    P = new P(bot, user, userarray, modconf);
 
     if(!P.help) {
       console.log("[ ERROR ] Module " + name + " has no help object, not loading module");

@@ -56,7 +56,9 @@ bot.addListener("-mode", function (chan, by, mode, arg) {
 var command = new (require('./command'))(bot);
 var P;
 for(var i in config.plugins) {
-  P = command.loadModule(config.plugins[i], bot, users, config.users);
+  var mconf = {};
+  if(config.plugin_config[config.plugins[i]]) {console.log(config.plugins[i]); mconf = config.plugin_config[config.plugins[i]];}
+  P = command.loadModule(config.plugins[i], bot, users, config.users, mconf);
   if(P != false) {
     plugins[config.plugins[i]] = P
   }
