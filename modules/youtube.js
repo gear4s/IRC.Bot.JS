@@ -21,6 +21,10 @@ var youtube = function(bot, _, __, modconf) {
     for(var u in t) {
       if(parseVideoURL(t[u])) {
         youtube.getById(parseVideoURL(t[u]), function(data) {
+          if(data.pageInfo.totalResults == 0) {
+            bot.notice(from, "Invalid YouTube ID: " + parseVideoURL(t[u]));
+            return;
+          }
           data = data.items[0];
           bot.say(to, "[" + data.snippet.channelTitle + "] " + data.snippet.title + " - " + data.statistics.likeCount + " likes, " + data.statistics.dislikeCount + " dislikes");
         });
