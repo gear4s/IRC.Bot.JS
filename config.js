@@ -15,14 +15,14 @@ module.exports = {
     // User format:
     //   IRC_Name: [priv_lvl, "password"]
     // Example:
-    Narwhaal: [2, "lisa01"]
+    Narwhaal: [2, "myPass"]
   },
   
   plugin_config: {
     // Format:
     //  PluginName: {settingname: option}
     youtube: {
-      api_key: 'AIzaSyD8VHoBULHzAbYH62IUVybCYG3CKFEMexs'
+      api_key: 'your_api_key'
     }
   }
 };
