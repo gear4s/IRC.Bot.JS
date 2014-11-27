@@ -72,9 +72,10 @@ var makeReadable = function(bytes, precision) {
   }
 }
 bot.prototype.commands.public.stats = function(_, to) {
-  var minutes = parseInt(Math.floor(process.uptime() / 60));
-  var seconds = parseInt(process.uptime() - minutes * 60);
-  var hours = parseInt(Math.floor(process.uptime() / 3600));
+  var uptime = process.uptime();
+  var hours = parseInt(Math.floor(uptime / 3600));
+  var minutes = parseInt(Math.floor((uptime - (hours * 3600)) / 60));
+  var seconds = uptime - (hours * 3600) - (minutes * 60);
   
   this.bot.say(to, "RAM being used: " + makeReadable(process.memoryUsage().heapUsed, 2) + " out of " + makeReadable(process.memoryUsage().heapTotal, 2) + " - Uptime: " + hours + "h " + minutes + "m " + seconds + "s");
 }
